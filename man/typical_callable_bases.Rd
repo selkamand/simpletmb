@@ -7,7 +7,7 @@
 typical_callable_bases()
 }
 \value{
-numeric vector where names are sequencing strategy and values are the number of callable bases.
+a list where names are sequencing strategy and values are the number of callable bases.
 }
 \description{
 It is best-practice to identify the exact number of \strong{callable_bases}

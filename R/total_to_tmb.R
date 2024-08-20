@@ -22,7 +22,17 @@
 #' @export
 #'
 #' @examples
-#' tmb <- mutations_to_tmb(total_mutations = 500, callable_bases = 2.9*10^9)
+#'
+#' tmb <- mutations_to_tmb(
+#'   total_mutations = 500,
+#'  callable_bases = 2.9*10^9 # typical number of callable bases for WGS (hg38)
+#'  )
+#'
+#' callable_bases <- typical_callable_bases()
+#' tmb <- mutations_to_tmb(
+#'   total_mutations = 500,
+#'  callable_bases = callable_bases$`TruSight Oncology 500 panel`
+#'  )
 #'
 mutations_to_tmb <- function(total_mutations, callable_bases, mutations_per = c("megabase", "kilobase", "gigabase")){
   assertions::assert_number(callable_bases)
@@ -44,15 +54,15 @@ mutations_to_tmb <- function(total_mutations, callable_bases, mutations_per = c(
 #' based on your sequencing strategy, bioinformatics pipeline and breadth & depth of coverage (extracted from sample BAMs).
 #' This function describes some sensible defaults for common sequencing strategies that should only be used if more comprehensive methods of estimation are not possible.
 #'
-#' @return numeric vector where names are sequencing strategy and values are the number of callable bases.
+#' @return a list where names are sequencing strategy and values are the number of callable bases.
 #' @export
 #'
 #' @examples
 #' typical_callable_bases()
 typical_callable_bases <- function(){
   c(
-    "WGS called against hg38" = 2.9*10^9,
+    "Whole Genome Sequencing (hg38)" = 2.9*10^9,
     "Twist Bioscience for Illumina Exome 2.5 Exome 2.5 Panel"=  37.5*10^6 ,
     "TruSight Oncology 500 panel" = 1.94*10^6
-  )
+  ) |> as.list()
 }

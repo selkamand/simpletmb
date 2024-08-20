@@ -79,32 +79,30 @@ unlikely to identify mutations.
 Even when leveraging BAM-informed approaches, TMBs from panels, exomes
 and whole-genomes will still not be comparable. There are two reasons:
 
-1.  The ability to identify subclonal variants depends on tumour purity
-    and sequencing depth. Panels have much higher depth of coverage
-    relative to exome or whole-genome samples, meaning
-    **totalMutations** per-base will be inflated in higher-depth
-    platforms. This can be addressed by excluding subclonal variants
-    from the count of `totalMutations`, although that comes at the cost
-    detecting samples with mismatch repair deficient subclones, so it
-    may be worth tolerating the bias or using more complex adjustment
-    for depth.
+1.  Detection of subclonal variants depends on tumour purity and
+    sequencing depth. Panels have higher depth of coverage than to exome
+    or whole-genome approaches, meaning **totalMutations** per-base will
+    be inflated. This can be addressed by excluding subclonal variants
+    from the count of `totalMutations`, albeit at the cost of detecting
+    samples with mismatch repair deficient subclones. In many cases, it
+    may be better to either tolerate the bias or use more complex
+    depth-normalisation methods.
 
 2.  The callable regions of different assays (panels, exomes and
     genomes) can have different mutation rates and therefore lead to
     difficulty estimating comparable TMBs.
 
-The biggest challenge, however, is that there is now a large number of
-cancer samples with mutation data available in tabular / variant-call
-formats rather than BAMS. These samples often come from different
-centers, and sometimes even processed using different bioinformatics
-pipelines. This makes BAM- and pipeline-specific approaches harder to
-employ.
+The largest challenge, however, comes when analysing public cancer
+datasets where mutation data available in tabular / variant-call formats
+rather than BAMS. These samples are sequenced at different centers, and
+sometimes processed with different analytical pipelines. This makes BAM-
+and pipeline-specific approaches harder to employ.
 
 The saving grace is that biologically important differences in TMB are
 quite large. Samples with mismatch repair deficiencies have orders of
-magnitude higher TMBs than those that don’t. Variance in TMB driven by
-biologically strong signals will likely overwhelm technical biases so
-long as normalisation and categorisation of TMBs as high vs low is
+magnitude higher TMBs than MMR-intact samples. Variance in TMB driven by
+biologically strong signals is likely to overwhelm technical biases, so
+long as normalisation and categorisation of TMBs as high vs low are
 reasonably sensible.
 
 simpleTMB is a quick, customisable tool for transforming total mutation
@@ -118,6 +116,6 @@ units as required for `mutations_to_tmb()`
 
 | Strategy | Callable Bases | Definition |
 |----|----|----|
-| TruSight Oncology 500 panel | 1.94 Mbp | [**Product Specifications**](https://sapac.illumina.com/products/by-type/clinical-research-products/trusight-oncology-500.html) |
-| Whole-Genome-Sequencing called against hg38 | 2.9 Gbp | **GRCh38 reference excluding gaps** |
+| TruSight Oncology 500 panel | 1.94 Mbp | [Product Specifications](https://sapac.illumina.com/products/by-type/clinical-research-products/trusight-oncology-500.html) |
+| Whole-Genome-Sequencing called against hg38 | 2.9 Gbp | GRCh38 reference excluding gaps |
 | Twist Bioscience for Illumina Exome 2.5 Exome 2.5 Panel | 37.5 Mbp | [Product Specifications](https://sapac.illumina.com/products/by-type/sequencing-kits/library-prep-kits/dna-prep-exome-enrichment.html) |

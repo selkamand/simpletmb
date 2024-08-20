@@ -34,6 +34,16 @@ based on your sequencing strategy, bioinformatics pipeline and breadth & depth o
 however we do provide sensible defaults for common sequencing strategies. See \code{\link[=typical_callable_bases]{typical_callable_bases()}} for details.
 }
 \examples{
-tmb <- mutations_to_tmb(total_mutations = 500, callable_bases = 2.9*10^9)
+
+tmb <- mutations_to_tmb(
+  total_mutations = 500,
+ callable_bases = 2.9*10^9 # typical number of callable bases for WGS (hg38)
+ )
+
+callable_bases <- typical_callable_bases()
+tmb <- mutations_to_tmb(
+  total_mutations = 500,
+ callable_bases = callable_bases$`TruSight Oncology 500 panel`
+ )
 
 }
