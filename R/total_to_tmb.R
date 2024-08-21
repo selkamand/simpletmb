@@ -47,7 +47,7 @@ mutations_to_tmb <- function(total_mutations, callable_bases, mutations_per = c(
 
   if(is.na(exponent)) stop('Support for returning mutations per [', mutations_per, '] has not been implemented')
 
-  total_mutations/callable_bases * 10
+  unname(total_mutations/callable_bases * 10^exponent)
 }
 
 
