@@ -35,8 +35,11 @@
 #'  )
 #'
 mutations_to_tmb <- function(total_mutations, callable_bases, mutations_per = c("megabase", "kilobase", "gigabase")){
-  assertions::assert_number(callable_bases)
-  assertions::assert_number(total_mutations)
+  assertions::assert_numeric(callable_bases)
+  assertions::assert_numeric(total_mutations)
+  assertions::assert(
+    length(callable_bases) == length(total_mutations) | length(callable_bases)  == 1,
+    msg = "{.arg callable_bases} must be either a single number or a vector the same length as {.arg total_mutations} ({length(total_mutations)}). {.arg callable_bases} supplied had {length(callable_bases)} elements")
 
   mutations_per <- rlang::arg_match(mutations_per)
   lookup <- c("gigabase" = 9, "megabase" = 6, "kilobase" = 3)
